@@ -45,3 +45,8 @@ class GradeRepository:
             LIMIT :limit
             """, {'limit': limit}
         ).fetchall()
+    
+    @staticmethod
+    def delete_grades_by_student(student_id: int, db: Session): 
+        db.query(Grade).filter(Grade.student_id == student_id).delete()
+    

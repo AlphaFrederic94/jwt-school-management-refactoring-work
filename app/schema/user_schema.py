@@ -19,5 +19,14 @@ class UserResponse(BaseModel):
     role: str
     date_of_birth: Optional[date]
 
+
+class UserUpdate(BaseModel):
+    first_name: str
+    last_name: str
+    email: EmailStr
+    password: str
+    role: str
+    date_of_birth: Optional[date] = None
+
     class Config:
         orm_mode = True

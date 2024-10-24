@@ -27,3 +27,24 @@ class UserRepository:
     @staticmethod
     def get_user_by_id(db: Session, user_id: int) -> User:
         return db.query(User).filter(User.id == user_id).first()
+
+    @staticmethod
+    def get_all_students(db: Session) -> User:
+        return db.query(User).filter(User.role =='student').all()
+    
+    @staticmethod
+    def fetch_student(student_id:int , db:Session) -> User:
+        student = db.query(User).filter(User.id == student_id, User.role =='student').first()
+        return student
+    
+    @staticmethod
+    def update_student_record(student: User, updates: dict, db:Session):
+        for field, value in updates.items():
+            setattr(student, field, value)
+            db.commit()
+            return student
+        
+    @staticmethod
+    def delete_student_by_id(student_id: int, db: Session): 
+        db.query(User).filter(User.id == student_id).delete()
+    
