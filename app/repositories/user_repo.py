@@ -23,6 +23,8 @@ class UserRepository:
         db.commit()
         db.refresh(db_user)
         return db_user
+    
+   
 
     @staticmethod
     def get_user_by_id(db: Session, user_id: int) -> User:
@@ -31,6 +33,10 @@ class UserRepository:
     @staticmethod
     def get_all_students(db: Session) -> User:
         return db.query(User).filter(User.role =='student').all()
+    
+    @staticmethod
+    def get_all_teachers(db: Session) -> User:
+        return db.query(User).filter(User.role =='teacher').all()
     
     @staticmethod
     def fetch_student(student_id:int , db:Session) -> User:
@@ -47,4 +53,6 @@ class UserRepository:
     @staticmethod
     def delete_student_by_id(student_id: int, db: Session): 
         db.query(User).filter(User.id == student_id).delete()
+
+
     
