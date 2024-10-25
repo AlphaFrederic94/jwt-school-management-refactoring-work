@@ -1,5 +1,5 @@
 # app/main.py
-
+import uvicorn
 from fastapi import FastAPI
 
 from app.database.database import Base, engine
@@ -25,9 +25,5 @@ app.add_middleware(
 app.include_router(grades_router)
 app.include_router(auth_router)
 
-
-
-# Root path for health check
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to the FastAPI Application!"}
+if __name__ == "__main__":
+    uvicorn.run("main:app", reload=True, port=9000)
