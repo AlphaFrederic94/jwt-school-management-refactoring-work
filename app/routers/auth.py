@@ -65,7 +65,9 @@ def get_teachers(db: Session= Depends(get_db)):
 def update_student(student_id: int,student_update:UserUpdate ,db :Session = Depends(get_db), current_user: dict=Depends(get_current_user)):
     get_current_teacher(current_user)
     student = UserRepository.fetch_student(student_id,db)
-    updates = student_update.dict(exclude_unset="true")
+    if student is None:
+        return {"error":"student is not found"},
+    updates = student_update.dict(exclude_unset=True)
     updated_student = UserRepository.update_student_record(student, updates,db)
     return{"message":"student updated successfully","student":updated_student}
 
